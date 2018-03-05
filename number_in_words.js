@@ -38,50 +38,62 @@ function numberToWords(number) {
   ];
 
   let numLength = String(number).split('').length;
-  // console.log(numLength); //2
-
+  
   while (number > 0) {
-    for (let i = 0; i < arrFixNumber.length; i++) {
-      if (number <= 10) {
-        if (number == arrFixNumber[i].number) {
-          number -= arrFixNumber[i].number;
-          arrResult.push(arrFixNumber[i].words);
-        }
-      } else if (number > 10 && number < 20) {
-        let input = number % 10;
-        if (input == 1) {
-          number -= (input+10);
-          arrResult.push(`sebelas `);
-        } else if (input == arrFixNumber[i].number) {
-          number -= (input+10);
-          arrResult.push(`${arrFixNumber[i].words} belas `);
+    // console.log(numLength);
+    if (numLength <= 3) {
+      for (let i = 0; i < arrFixNumber.length; i++) {
+        if (number <= 10) {
+          if (number == arrFixNumber[i].number) {
+            number -= arrFixNumber[i].number;
+            arrResult.push(arrFixNumber[i].words);
+          }
+        } else if (number > 10 && number < 20) {
+          let input = number % 10;
+          if (input == 1) {
+            number -= (input+10);
+            arrResult.push(`sebelas `);
+          } else if (input == arrFixNumber[i].number) {
+            number -= (input+10);
+            arrResult.push(`${arrFixNumber[i].words} belas `);
+          } 
+        } else if (number >= 20 && number < 100) {
+          let input = Math.floor(number / 10);
+          if (input == arrFixNumber[i].number) {
+            number -= (input*10);
+            arrResult.push(`${arrFixNumber[i].words} puluh `);
+          }
+        } else if (number >= 100 && number < 1000) {
+          let input = Math.floor(number / 100);
+          if (input == 1) {
+            number -= (input*100);
+            arrResult.push(`seratus `);
+          } else if (input == arrFixNumber[i].number) {
+            number -= (input*100);
+            arrResult.push(`${arrFixNumber[i].words} ratus `);
+          }
         } 
-      } else if (number >= 20 && number < 100) {
-        let input = Math.floor(number / 10);
-        if (input == arrFixNumber[i].number) {
-          number -= (input*10);
-          arrResult.push(`${arrFixNumber[i].words} puluh `);
-        }
-      } else if (number >= 100 && number < 1000) {
-        let input = Math.floor(number / 100);
+      }   
+    } else if (numLength <= 6) {
+      // console.log(numLength);
+      for (let i = 0; i < arrFixNumber.length; i++) {
+        let input = Math.floor(number / 1000);
         if (input == 1) {
-          number -= (input*100);
-          arrResult.push(`seratus `);
+          number -= (input*1000);
+          arrResult.push(`seribu `);
         } else if (input == arrFixNumber[i].number) {
-          number -= (input*100);
-          arrResult.push(`${arrFixNumber[i].words} ratus `);
+          number -= (input*1000);
+          arrResult.push(`${arrFixNumber[i].words} ribu `);
+          }
         }
       }
-    } 
-  }
-
+    }
   return arrResult.join('');
-
-
 }
 
 // Driver code
-console.log(numberToWords(210));
+console.log(numberToWords(7210));
 // console.log(numberToWords(705));
+// console.log(numberToWords(10000));
 // console.log(numberToWords(1000000));
 // console.log(numberToWords(2011845));
