@@ -18,6 +18,36 @@ function numberToWords(number) {
   if(number<1) return '';
 
   else{
+    //TRILIUN
+    if(number>=100000000000){
+      var numberStr = number + '';
+
+      return numberToWords(parseInt(numberStr.substr(0,1))) + ' triliun ' + numberToWords(parseInt(numberStr.substr(1, 9)));
+    }
+    //PULUHAN MILIAR
+    if(number>=10000000000){
+      var numberStr = number + '';
+
+      return numberToWords(parseInt(numberStr.substr(0,2))) + ' miliar ' + numberToWords(parseInt(numberStr.substr(2, 9)));
+    }
+    //MILIAR
+    if(number>=1000000000){
+      var numberStr = number + '';
+
+      return numberToWords(parseInt(numberStr.substr(0,1))) + ' miliar ' + numberToWords(parseInt(numberStr.substr(2, 9)));
+    }
+    //RATUSAN JUTA
+    if(number>=100000000){
+      var numberStr = number + '';
+
+      return numberToWords(parseInt(numberStr.substr(0,3))) + ' juta ' + numberToWords(parseInt(numberStr.substr(3, 6)));
+    }
+    //PULUHAN JUTA
+    if(number>=10000000){
+      var numberStr = number + '';
+
+      return numberToWords(parseInt(numberStr.substr(0,2))) + ' juta ' + numberToWords(parseInt(numberStr.substr(2, 6)));
+    }
     //JUTAAN
     if(number>=1000000){
       var numberStr = number + '';
@@ -103,3 +133,9 @@ function numberToWords(number) {
 console.log(numberToWords(705));
 console.log(numberToWords(1000000));
 console.log(numberToWords(2011845));
+console.log(numberToWords(12011845));
+console.log(numberToWords(42011845));
+console.log(numberToWords(142011845));
+console.log(numberToWords(2142011845));
+console.log(numberToWords(12142011845));
+console.log(numberToWords(812142011845));
