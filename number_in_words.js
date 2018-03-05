@@ -41,19 +41,55 @@ function numberToWords(number) {
     bilanganSisa = number - bilanganInti*10
     return switchWord(bilanganInti) + " puluh " + switchWord(bilanganSisa)
   //ratusan "seratus"
-  }else if(number > 100 && number < 200){
+  }else if(number >= 100 && number < 200){
     number = number - 100;
     if (number === 100) {
       return "seratus";
     }else{
       return "seratus " + numberToWords(number);
     }
-
-  }else if(number > 200 && number < 1000){
+  //ratusan
+  }else if(number >= 200 && number < 1000){
     numberInti = Math.floor(number/100)
     sisa = number - Math.floor(number/100)*100
     return switchWord(numberInti) + " ratus " + numberToWords(sisa);
   }
+  //ribuan "seribu"
+  else if(number >= 1000  && number < 2000){
+    numberInti = Math.floor(number/1000)
+    sisa = number - numberInti*1000
+    return "seribu " + numberToWords(sisa);
+  }
+  //ribuan
+  else if(number >= 2000 && number < 10000){
+    numberInti = Math.floor(number/1000)
+    sisa = number - numberInti*1000
+    return switchWord(numberInti) + " ribu " + numberToWords(sisa);
+  }
+  else if(number >= 10000 && number < 1000000){
+    numberInti = Math.floor(number/1000)
+    sisa = number - numberInti*1000
+    return numberToWords(numberInti) + " ribu " + numberToWords(sisa);
+
+    //juta
+  }else if(number >= 1000000 && number < 1000000000){
+    numberInti = Math.floor(number/1000000)
+    sisa = number - numberInti*1000000
+    return numberToWords(numberInti) + " juta " + numberToWords(sisa);
+
+    //miliar
+  }else if(number >= 1000000000 && number < 1000000000000){
+    numberInti = Math.floor(number/1000000000)
+    sisa = number - numberInti*1000000000
+    return numberToWords(numberInti) + " miliar " + numberToWords(sisa);
+
+    //triliun
+  }else if(number >= 1000000000000 && number < 1000000000000000){
+  numberInti = Math.floor(number/1000000000000)
+  sisa = number - numberInti*1000000000000
+  return numberToWords(numberInti) + " triliun " + numberToWords(sisa);
+  }
+
 }
 
 
@@ -61,7 +97,14 @@ function numberToWords(number) {
 // Driver code
 console.log(numberToWords(5));
 console.log(numberToWords(72));
-console.log(numberToWords(150));
+console.log(numberToWords(250));
+console.log(numberToWords(200));
 console.log(numberToWords(999));
-// console.log(numberToWords(1000000));
-// console.log(numberToWords(2011845));
+console.log(numberToWords(1005))
+console.log(numberToWords(9999))
+console.log(numberToWords(99999))
+console.log(numberToWords(99500000));
+console.log(numberToWords(1500000000));
+console.log(numberToWords(2500000000000));
+console.log(numberToWords(1000000));
+console.log(numberToWords(2011845));
