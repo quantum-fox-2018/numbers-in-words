@@ -58,9 +58,21 @@ function numberToWords(number) {
     var sisaJuta = number % 1000000;
     return numberToWords(jutaan) + ' juta ' + numberToWords(sisaJuta);
   }
+
+  if(number > 999999999 && number < 1000000000000) {
+    var milyar = Math.floor(number/1000000000);
+    var sisaMilyar = number % 1000000000;
+    return numberToWords(milyar) + ' miliyar ' + numberToWords(sisaMilyar);
+  }
+
+  if(number > 999999999999 && number < 1000000000000000) {
+    var trilyun = Math.floor(number/1000000000000);
+    var sisaTrilyun = number % 1000000000000;
+    return numberToWords(trilyun) + ' triliun ' + numberToWords(sisaTrilyun);
+  }
 }
 
 // Driver code
 console.log(numberToWords(705));
-console.log(numberToWords(1000000));
+console.log(numberToWords(1000000000));
 console.log(numberToWords(2011845));
