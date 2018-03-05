@@ -93,21 +93,21 @@ function numberToWords(number) {
     }
     for(let j=divider.length-1; j>=0; j--){
       if(number>=divider[j].num){
-        var hasilBagi = Math.floor(number / divider[j].num);
-        var hasilModulus = number % divider[j].num;
-        var kataPengganti = divider[j].word;
+        var divide = Math.floor(number / divider[j].num);
+        var modulus = number % divider[j].num;
+        var substitute = divider[j].word;
         break;
       }
     }
-    if((hasilBagi==1 && kataPengganti=='ratus') || (hasilBagi==1 && kataPengganti=='ribu')){
-      return `se${kataPengganti} ${numberToWords(hasilModulus)}`;
+    if((divide==1 && substitute=='ratus') || (divide==1 && substitute=='ribu')){
+      return `se${substitute} ${numberToWords(modulus)}`;
     } else {
-      if(hasilBagi>19){
-        return `${numberToWords(hasilBagi)} ${kataPengganti} ${numberToWords(hasilModulus)}`;
+      if(divide>19){
+        return `${numberToWords(divide)} ${substitute} ${numberToWords(modulus)}`;
       } else {
         for(let k=words.length-1; k>=0; k--){
-          if(hasilBagi==words[k].num){
-            return `${words[k].word} ${kataPengganti} ${numberToWords(hasilModulus)}`;
+          if(divide==words[k].num){
+            return `${words[k].word} ${substitute} ${numberToWords(modulus)}`;
           }
         }
       }
