@@ -3,9 +3,9 @@ function convertToString (number){
   var angkaString = ['satu','dua','tiga','empat','lima','enam', 'tujuh', 'delapan', 'sembilan'];
   var angkaStringSpecial = ['seratus','seribu','sejuta'];
   var angkaPrefix = ['','puluh','ratus'];
-  var angkaPrefix2 = ['','ribu','juta'];
+  var angkaPrefix2 = [' ','ribu ','juta ', 'milyar ', 'triliun '];
   var angka = [1,2,3,4,5,6,7,8,9];
-  var angkaSpecial = [100,1000,1000000];
+  var angkaSpecial = [100,1000,1000000,1000000000,1000000000000];
   var angkaBelas = [10,11,12,13,14,15,16,17,18,19];
   var stringBelas = ['sepuluh','sebelas','dua belas','tiga belas','empat belas','lima belas','enam belas','tujuh belas','delapan belas','sembilan belas'];
   var pembagi = [1,10,100];
@@ -13,9 +13,15 @@ function convertToString (number){
   var result = '';
   var hasilKurang = 0;
   var countPrefix = 0;
+  var perbandingan = 1;
 
   var numberString = number.toString();
-  var panjangNumber = numberString;
+  var panjangNumber = numberString.length-1;
+
+  while(panjangNumber>2){
+    panjangNumber = panjangNumber -3;
+    countPrefix++;
+  }
 
   if(numberString.length>0 && number>0){
     pengurang = parseInt(numberString[0])* (Math.pow(10,numberString.length-1));
@@ -23,7 +29,14 @@ function convertToString (number){
 
     for(var i=0;i<angkaSpecial.length;i++){
 
-      if(pengurang == angkaSpecial[i]){
+      if(pengurang >= angkaSpecial[angkaSpecial.length-1-i]){
+        perbandingan = pengurang / angkaSpecial[angkaSpecial.length-1-i];
+        break;
+      }
+    }
+
+    for(var i=0;i<angkaSpecial.length;i++){
+      if(perbandingan == angkaSpecial[i]){
         return result + angkaStringSpecial[i] + ' ' + convertToString(hasilKurang);
       }
     }
@@ -45,30 +58,12 @@ function convertToString (number){
 
       if(angka[i] == parseInt(numberString[0])){
 
-        if(numberString.length<= 2){
-
-          if(numberString.length>0){
-            return result + angkaString[i] + ' ' + angkaPrefix[numberString.length-1] + ' ' + convertToString(hasilKurang);
-          }
-          else if(panjangNumber==0){
-            return result + angkaString[i] + ' ' + convertToString(hasilKurang);
-          }
-        }
-        else{
-          while(panjangNumber>2){
-            countPrefix++;
-            panjangNumber = panjangNumber - 3;
-          }
-          panjangNumber = panjangNumber +3;
-
           if(panjangNumber>0){
-            return result + angkaString[i] + ' ' + angkaPrefix[numberString.length-1] + ' ' + convertToString(hasilKurang);
+            return result + angkaString[i] + ' ' + angkaPrefix[panjangNumber] + ' ' + convertToString(hasilKurang);
           }
           else if(panjangNumber==0){
-            return result + angkaString[i] + ' ' + angkaPrefix2[countPrefix] + ' ' + convertToString(hasilKurang);
+            return result + angkaString[i] + ' ' + angkaPrefix2[countPrefix] + convertToString(hasilKurang);
           }
-
-        }
       }
 
     }
@@ -79,8 +74,8 @@ function convertToString (number){
   }
 }
 
-console.log('4',convertToString(4));
+console.log('4',convertToString(999000000000000));
 console.log('27',convertToString(27));
 console.log('102',convertToString(102));
 console.log('328079',convertToString(328079));
-console.log(convertToString(82102713));
+console.log('82102713',convertToString(82102713));
