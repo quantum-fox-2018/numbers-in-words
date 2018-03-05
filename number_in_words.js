@@ -21,10 +21,8 @@ function numberToWords(number) {
         break;
       }
     }
-    if((number-hasilModulus)==100){
-      return `seratus ${numberToWords(hasilModulus)}`;
-    } else if((number-hasilModulus)==1000){
-      return `seribu ${numberToWords(hasilModulus)}`;
+    if(hasilBagi==1){
+      return `se${kataPengganti} ${numberToWords(hasilModulus)}`;
     } else {
       if(hasilBagi>19){
         return `${numberToWords(hasilBagi)} ${kataPengganti} ${numberToWords(hasilModulus)}`;
@@ -40,6 +38,6 @@ function numberToWords(number) {
 }
 
 // Driver code
-console.log(numberToWords(705));
+console.log(numberToWords(1005));
 console.log(numberToWords(10041412));
 console.log(numberToWords(2011845));
