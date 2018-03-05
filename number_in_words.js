@@ -144,10 +144,17 @@ function ratusan(number) {
   }
 
   if(number >= 10) {
-    if(number === 10) {
-      return "sepuluh" + ratusan(number-10);
-    } else if(number === 11) {
-      return "sebelas" + ratusan(number-11);
+    if(number < 20) {
+      if(number === 10) {
+        return "sepuluh" + ratusan(number-10);
+      } else if(number === 11) {
+        return "sebelas" + ratusan(number-11);
+      } else {
+        var belakang = parseInt(number.toString().charAt(1));
+        var index = angka2.indexOf(belakang);
+        number -= belakang+10;
+        return angka1[index] + " belas" + ratusan(number);
+      }
     } else {
       var tampung = number%10;
       var angkaDepan = (number - tampung) / 10;
@@ -204,6 +211,6 @@ function numberToWords(number) {
 }
 
 // Driver code
-console.log(numberToWords(705));
+console.log(numberToWords(721));
 console.log(numberToWords(1000000));
 console.log(numberToWords(2011845));
