@@ -1,81 +1,95 @@
-function convertToString (number){
+function numberToWords(number) {
+  // Your code here
+  const angkaString = ['dua','tiga','empat','lima','enam','tujuh','delapan','sembilan'];
+  const angka = [2,3,4,5,6,7,8,9];
+  const angkaPrefix = ['', 'puluh','ratus'];
+  const angkaPrefix2 = ['','ribu ','juta ','miliar ','triliun '];
 
-  var angkaString = ['satu','dua','tiga','empat','lima','enam', 'tujuh', 'delapan', 'sembilan'];
-  var angkaStringSpecial = ['seratus','seribu','sejuta'];
-  var angkaPrefix = ['','puluh','ratus'];
-  var angkaPrefix2 = [' ','ribu ','juta ', 'milyar ', 'triliun '];
-  var angka = [1,2,3,4,5,6,7,8,9];
-  var angkaSpecial = [100,1000,1000000,1000000000,1000000000000];
-  var angkaBelas = [10,11,12,13,14,15,16,17,18,19];
-  var stringBelas = ['sepuluh','sebelas','dua belas','tiga belas','empat belas','lima belas','enam belas','tujuh belas','delapan belas','sembilan belas'];
-  var pembagi = [1,10,100];
-  var pengurang =1;
-  var result = '';
-  var hasilKurang = 0;
-  var countPrefix = 0;
-  var perbandingan = 1;
-
-  var numberString = number.toString();
-  var panjangNumber = numberString.length-1;
-
-  while(panjangNumber>2){
+  let numberString = number.toString();
+  let panjangNumber = numberString.length;
+  while(panjangNumber > 3){
     panjangNumber = panjangNumber -3;
-    countPrefix++;
   }
 
-  if(numberString.length>0 && number>0){
-    pengurang = parseInt(numberString[0])* (Math.pow(10,numberString.length-1));
-    hasilKurang = number - pengurang;
+  let pivotPotong = panjangNumber;
+  let outputKonversi = "";
 
-    for(var i=0;i<angkaSpecial.length;i++){
-
-      if(pengurang >= angkaSpecial[angkaSpecial.length-1-i]){
-        perbandingan = pengurang / angkaSpecial[angkaSpecial.length-1-i];
-        break;
-      }
-    }
-
-    for(var i=0;i<angkaSpecial.length;i++){
-      if(perbandingan == angkaSpecial[i]){
-        return result + angkaStringSpecial[i] + ' ' + convertToString(hasilKurang);
-      }
-    }
-
-    for(var i=0;i<angkaBelas.length;i++){
-
-      if(number == angkaBelas[i]){
-        return result + stringBelas[i] + ' ' + convertToString(0);
-      }
-    }
-
-
-
-    if( parseInt(numberString[0]+numberString[1])>=11 && parseInt(numberString[0]+numberString[1])<=19){
-      return result + stringBelas[0] + ' ' + convertToString(hasilKurang) ;
-    }
-
-    for(var i=0;i<angkaString.length;i++){
-
-      if(angka[i] == parseInt(numberString[0])){
-
-          if(panjangNumber>0){
-            return result + angkaString[i] + ' ' + angkaPrefix[panjangNumber] + ' ' + convertToString(hasilKurang);
-          }
-          else if(panjangNumber==0){
-            return result + angkaString[i] + ' ' + angkaPrefix2[countPrefix] + convertToString(hasilKurang);
-          }
-      }
-
-    }
+  if(Number.isNaN(number) == true){
+    return outputKonversi;
   }
 
-  else{
-    return result;
+  if(numberString.length > 0 ){
+    for(let i=0;i<pivotPotong;i++){
+
+      let angkaYangDikonversi = parseInt(numberString[i]);
+      if(numberString[i] != 1){
+        for(let j=0;j<angka.length;j++){
+
+          if(angka[j] == angkaYangDikonversi){
+            outputKonversi = outputKonversi + angkaString[j] + ' ' + angkaPrefix[pivotPotong-1-i] + ' ' ;
+          }
+        }
+      }
+      else if(angkaYangDikonversi == 1){
+
+        if(i == 0  && numberString.length == 4){
+          outputKonversi = outputKonversi + 'se ';
+        }
+        else if(i == 0  && pivotPotong == 3){
+          outputKonversi = outputKonversi + 'seratus ';
+        }
+        else if((i == 1 && pivotPotong == 3) || (i == 0 && pivotPotong == 2)){
+          i++;
+          angkaYangDikonversi = parseInt(numberString[i]);
+          if(angkaYangDikonversi  == 0){
+            outputKonversi = outputKonversi + 'sepuluh  ';
+          }
+          else if(angkaYangDikonversi == 1){
+            outputKonversi = outputKonversi + 'sebelas  ';
+          }
+          else if(angkaYangDikonversi > 1){
+
+            for(let k=0;k<angka.length;k++){
+
+              if(angka[k] == angkaYangDikonversi){
+                outputKonversi = outputKonversi + angkaString[k] + ' belas ' ;
+              }
+            }
+
+          }
+        }
+        else if(i == pivotPotong-1){
+          outputKonversi = outputKonversi + 'satu  ';
+        }
+      }
+    }
+
+    outputKonversi = outputKonversi.slice(0,outputKonversi.length-1);
+    if(pivotPotong ==3){
+      outputKonversi = outputKonversi + angkaPrefix2[Math.floor((numberString.length/3))-1] + ' ';
+    }
+    else if(pivotPotong <3){
+      outputKonversi = outputKonversi + angkaPrefix2[Math.floor((numberString.length/3))] + ' ';
+    }
+    outputKonversi = outputKonversi.slice(0,outputKonversi.length-1);
+
+    number = parseInt(numberString.slice(pivotPotong));
+    return outputKonversi + numberToWords(number);
+
   }
 }
 
-console.log('4',convertToString(999000000000000));
-console.log('27',convertToString(27));
-console.log('102',convertToString(102));
-console.log('328079',convertToString(328079));
-console.log('82102713',convertToString(82102713));
+// Driver code
+console.log(numberToWords(999888000000000));
+console.log(numberToWords(111111));
+console.log(numberToWords(1321));
+
+console.log(numberToWords(990));
+console.log(numberToWords(91));
+console.log(numberToWords(1712));
+
+console.log('4',numberToWords(4));
+console.log('27',numberToWords(27));
+console.log('102',numberToWords(102));
+console.log('328079',numberToWords(328079));
+console.log('82102713',numberToWords(82102713));
