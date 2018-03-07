@@ -26,9 +26,7 @@ function numberToWords(number) {
   for (let i = 0; i < digitTerbilang.length; i++) {
     if (numberLength >= digitTerbilang[i][0]) {
       potong = numberLength % 3;
-      if (potong === 0) {
-        potong = 3;
-      }
+
       var tampung = numberRibuan(Number(String(number).slice(0, potong-1)));
       if (tampung) {
         return tampung + ' ' + digitTerbilang[i][0];
@@ -59,22 +57,6 @@ function numberRibuan(number) {
   if (number === 0) {
     return '';
   } else {
-    // RIBUAN
-    if (number >= 1000) {
-      firstNum = Number(String(number).charAt(0));
-      if (firstNum === 1) {
-        number -= 1000;
-        return ' seribu' + numberRibuan(number);
-      } else {
-        for (let i = 0; i < wordNum.length; i++) {
-          if (wordNum[i][0] === firstNum) {
-            number -= firstNum * 1000;
-            return ' ' + wordNum[i][1] + ' ribu' + numberRibuan(number);
-          }
-        }
-      }
-    }
-
     // RATUSAN
     if (number >= 100) {
       firstNum = Number(String(number).charAt(0));
@@ -126,9 +108,9 @@ function numberRibuan(number) {
 }
 
 // Driver code
-console.log(numberToWords(4));
-console.log(numberToWords(27));
-console.log(numberToWords(705));
-console.log(numberToWords(9999));
+//console.log(numberToWords(4));
+//console.log(numberToWords(27));
+//console.log(numberToWords(705));
+//console.log(numberToWords(9999));
 console.log(numberToWords(10000));
 //console.log(numberToWords(2011845));
