@@ -18,11 +18,11 @@ function numberToWords(number) {
   if(number<1) return '';
 
   else{
-    //TRILIUN
+    //RATUSAN MILIAR
     if(number>=100000000000){
       var numberStr = number + '';
-
-      return numberToWords(parseInt(numberStr.substr(0,1))) + ' triliun ' + numberToWords(parseInt(numberStr.substr(1, 9)));
+    
+      return numberToWords(parseInt(numberStr.substr(0,3))) +' miliar '+ numberToWords(parseInt(numberStr.substr(3, 9)));
     }
     //PULUHAN MILIAR
     if(number>=10000000000){
