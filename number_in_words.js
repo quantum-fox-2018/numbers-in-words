@@ -65,7 +65,7 @@ function numberToWords(number) {
       return kataSatuan[index];
     }
 
-    if (number > 9 && number < 99) {
+    if (number > 9 && number < 100) {
       if (number === 10) {
         return 'sepuluh';
       } else {
