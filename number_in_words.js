@@ -56,13 +56,17 @@ function numberToWords(number) {
       var firstNum = parseInt(numberStr.charAt(0));
       var theRest = parseInt(numberStr.slice(1));
 
-      for(var counter =0; counter<text.length; counter++){
-        if(firstNum === 1){
-          return 'sejuta' + ' ' + numberToWords(theRest);
-        }else if(firstNum === text[counter][0] && firstNum !== 1){
-          return text[counter][1] + ' juta ' + numberToWords(theRest); 
-        }
-      }
+      //BUAT SATU JUTA
+      return numberToWords(firstNum) + ' juta ' + numberToWords(theRest); 
+      
+      //BUAT SEJUTA
+      // for(var counter =0; counter<text.length; counter++){
+      //   if(firstNum === 1){
+      //     return 'sejuta' + ' ' + numberToWords(theRest);
+      //   }else if(firstNum === text[counter][0] && firstNum !== 1){
+      //     return text[counter][1] + ' juta ' + numberToWords(theRest); 
+      //   }
+      // }
 
     }//RATUSAN RIBU
     else if(number>=100000){
