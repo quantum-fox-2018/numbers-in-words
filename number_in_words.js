@@ -24,10 +24,10 @@ var wordNum = [
 
 var pecahanKecil = [[2, 10, 'puluh'], [3, 100, 'ratus']];
 var pecahanBesar = [
-    [13, 'triliyun'],
-    [10, 'milyar'],
-    [7, 'juta'],
-    [4, 'ribu']
+    [13, 1000000000000, 'triliyun'],
+    [10, 1000000000, 'milyar'],
+    [7, 1000000, 'juta'],
+    [4, 1000, 'ribu']
   ];
 
 function numberToWords(number) {
@@ -48,12 +48,11 @@ function numberToWords(number) {
         if (strNum.length % 3 === 0) {
           potongBack = 3;
         }
-        console.log(Number(String(number).slice(0, potongBack)));
-        tampung = numberRatusan(Number(String(number).slice(0, potongBack)));
-        potongFront = Number(strNum.slice(1));
-        number = number - (number - potongFront);
+        var potong = Number(String(number).slice(0, potongBack));
+        tampung = numberRatusan(potong);
+        number -= potong * (pecahanBesar[i][1]);
         if (tampung) {
-          return tampung + ' ' + pecahanBesar[i][1] + ' ' + numberToWords(number);
+          return tampung + ' ' + pecahanBesar[i][2] + ' ' + numberToWords(number);
         }
       }
     }
@@ -96,15 +95,12 @@ function numberRatusan(number) {
 }
 
 // Driver code
-console.log(numberToWords(11000));
-console.log(numberToWords(99900));
+console.log(numberToWords(9990000000000));
 /*
 console.log(numberToWords(4));
 console.log(numberToWords(27));
-console.log(numberToWords(102));
 console.log(numberToWords(999));
 console.log(numberToWords(38079));
-console.log(numberToWords(82102713));
 console.log(numberToWords(100000)); //seratus ribu
 console.log(numberToWords(1000000)); //satu juta
 console.log(numberToWords(10000000)); //sepuluh juta
