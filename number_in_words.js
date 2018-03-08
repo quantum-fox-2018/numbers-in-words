@@ -60,25 +60,33 @@ function numberToWords(number) {
   if (number === 0) {
     return '';
   } else {
+    // satuan
     if (number < 10) {
       let index = satuan.indexOf(number);
       return kataSatuan[index];
     }
-
-    if (number > 9 && number < 100) {
+    // sepuluh dan belasan
+    if (number > 9 && number < 20) {
       if (number === 10) {
         return 'sepuluh';
       } else {
         if (number === 11) {
           return 'sebelas';
         } else {
-          let front = Math.floor(number / 10);
           let back = number % 10;
-          return numberToWords(front) + ' puluh ' + numberToWords(back);
+          return numberToWords(back) + ' belas ';
         }
       }
     }
 
+    // puluhan mulai dari 20
+    if (number > 19 && number < 100) {
+      let front = Math.floor(number / 10);
+      let back = number % 10;
+      return numberToWords(front) + ' puluh ' + numberToWords(back);
+    }
+
+    // ratusan
     if (number > 99 && number < 1000) {
       let front = Math.floor(number / 100);
       let back = number % 100;
@@ -90,28 +98,32 @@ function numberToWords(number) {
     }
   }
 
+  // ribuan
   if (number > 999 && number < 1000000) {
     let front = Math.floor(number / 1000)
     let back = number % 1000;
     if (front === 1) {
-      return 'seribu';
+      return 'seribu ' + numberToWords(back);
     } else {
       return numberToWords(front) + ' ribu ' + numberToWords(back);
     }
   }
 
+  // jutaan
   if (number > 999999 && number < 1000000000) {
     let front = Math.floor(number / 1000000)
     let back = number % 1000000;
     return numberToWords(front) + ' juta ' + numberToWords(back);
   }
 
+  // milyaran
   if (number > 999999999 && number < 1000000000000) {
     let front = Math.floor(number / 1000000000)
     let back = number % 1000000000;
     return numberToWords(front) + ' milyar ' + numberToWords(back);
   }
 
+  // triliunan
   if (number > 999999999999 && number < 1000000000000000) {
     let front = Math.floor(number / 1000000000000)
     let back = number % 1000000000000;
@@ -120,6 +132,14 @@ function numberToWords(number) {
 }
 
 // Driver code
-console.log(numberToWords(1100000000000));
-console.log(numberToWords(111000));
-console.log(numberToWords(2011845));
+console.log(numberToWords(7));
+console.log(numberToWords(11));
+console.log(numberToWords(13));
+console.log(numberToWords(21));
+console.log(numberToWords(113));
+console.log(numberToWords(1234));
+console.log(numberToWords(11004));
+console.log(numberToWords(134003));
+console.log(numberToWords(122345697));
+console.log(numberToWords(120438628748));
+console.log(numberToWords(1204386287489));
